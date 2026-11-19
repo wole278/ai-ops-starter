@@ -217,21 +217,28 @@
       </div>
 
       <div id="os-win" class="panel active">
-        <p><strong>前置条件</strong>：本机已安装 Python 3（终端输入 <code>python --version</code> 可查看）。在终端运行：</p>
-        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button>agy plugin install https://github.com/wole278/ai-ops-starter</div>
-        <p>安装后重启或新开一个 Antigravity 窗口，即刻生效！</p>
+        <p><strong>傻瓜式一键安装（无需懂 Git，自动检测 Python 与插件目录）：</strong></p>
+        <p>① 按 <code>Win + X</code> 选择「<strong>终端</strong>」或「<strong>PowerShell</strong>」　② 粘贴下面这行命令并回车：</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button>irm https://wole278.github.io/ai-ops-starter/install.ps1 | iex</div>
+        <p>安装完成后重启或新开一个 Antigravity 窗口，即刻生效！（如已配好 <code>agy</code> 命令，也可直接运行 <code>agy plugin install https://github.com/wole278/ai-ops-starter</code>）</p>
       </div>
 
       <div id="os-mac" class="panel">
-        <p><strong>前置条件</strong>：macOS / Linux 系统通常自带 <code>python3</code>。在终端运行：</p>
-        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button>agy plugin install https://github.com/wole278/ai-ops-starter</div>
-        <p>安装后重启或新开一个 Antigravity 窗口，Hooks 会自动调用 <code>python3</code> 守护你的工作区。</p>
+        <p><strong>傻瓜式一键安装（自动检测环境与插件目录）：</strong></p>
+        <p>打开「<strong>终端 (Terminal)</strong>」，粘贴下面这行命令并回车：</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button>curl -fsSL https://wole278.github.io/ai-ops-starter/install.sh | bash</div>
+        <p>安装完成后重启或新开一个 Antigravity 窗口，即刻生效！</p>
       </div>
 
       <div id="os-offline" class="panel">
-        <p>如果你下载的是培训离线 ZIP 压缩包：解压后进入 <code>ai-ops-starter</code> 文件夹，运行：</p>
+        <p>如果你下载的是培训离线 ZIP 压缩包：<strong>先完整解压文件夹</strong>，然后按系统直接操作：</p>
+        <ul style="margin:8px 0 10px 20px;color:var(--muted);">
+          <li><strong>Windows 学员（零命令）</strong>：直接双击文件夹内的 <code>install.bat</code></li>
+          <li><strong>macOS 学员（零命令）</strong>：直接双击文件夹内的 <code>install-mac.command</code></li>
+          <li><strong>Linux 学员</strong>：在文件夹内右键打开终端，粘贴运行 <code>bash install.sh</code></li>
+        </ul>
+        <p>也可在解压目录内运行通用命令：</p>
         <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button>agy plugin install .</div>
-        <p>Windows 学员也可直接双击文件夹内的 <code>install.bat</code>，Mac/Linux 学员运行 <code>bash install.sh</code>。</p>
       </div>
 
       <div class="card" style="margin-top:14px;">

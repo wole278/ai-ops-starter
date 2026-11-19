@@ -6,19 +6,22 @@
 - **在线交互指南**：https://wole278.github.io/ai-ops-starter/
 - **离线学习**：直接双击本目录内的 `index.html` 即可在浏览器中离线学习与实操。
 
-## 30 秒安装插件（Windows / macOS / Linux）
+## 30 秒傻瓜式一键安装（Windows / macOS / Linux）
 
-前置条件：本机已安装 Python 3。
+无需提前配置 Git 或环境变量，复制对应系统的一行命令在终端回车即可（自动检测 Python 3 并安装插件）：
 
-```bash
-agy plugin install https://github.com/wole278/ai-ops-starter
-```
-
-如果是离线解压安装，进入本目录运行：
-
-```bash
-agy plugin install .
-```
+- **Windows（PowerShell）**：
+  ```powershell
+  irm https://wole278.github.io/ai-ops-starter/install.ps1 | iex
+  ```
+- **macOS / Linux（终端 Terminal）**：
+  ```bash
+  curl -fsSL https://wole278.github.io/ai-ops-starter/install.sh | bash
+  ```
+- **离线压缩包安装（零命令双击）**：
+  - Windows：解压后直接双击 `install.bat`
+  - macOS：解压后直接双击 `install-mac.command`
+  - Linux：解压后运行 `bash install.sh`
 
 安装完成后重启或新开一个 Antigravity 窗口即可生效。
 
