@@ -217,17 +217,26 @@
       </div>
 
       <div id="os-win" class="panel active">
-        <p><strong>傻瓜式一键安装（无需懂 Git，自动检测 Python 与插件目录）：</strong></p>
-        <p>① 按 <code>Win + X</code> 选择「<strong>终端</strong>」或「<strong>PowerShell</strong>」　② 粘贴下面这行命令并回车：</p>
-        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button>irm https://wole278.github.io/ai-ops-starter/install.ps1 | iex</div>
-        <p>安装完成后重启或新开一个 Antigravity 窗口，即刻生效！（如已配好 <code>agy</code> 命令，也可直接运行 <code>agy plugin install https://github.com/wole278/ai-ops-starter</code>）</p>
+        <p><strong>方式一（最傻瓜 · 零终端操作）：</strong>直接复制下面这句话，发给你的 Antigravity 对话框，让 AI 自己帮你装好：</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button>请帮我运行 irm https://wole278.github.io/ai-ops-starter/install.ps1 | iex 安装入门插件，完成后提醒我。</div>
+        <p style="margin-top:10px;"><strong>方式二（网页下载 · 双击自动运行）：</strong>不用自己开终端，点下面按钮下载后直接双击（如浏览器提示安全确认，选“保留/仍要运行”）：</p>
+        <p style="margin:8px 0 12px;"><a href="install.bat" download="install-ai-ops-starter.bat" style="display:inline-block;padding:10px 18px;border-radius:8px;background:var(--accent);color:#0f172a;font-weight:700;text-decoration:none;">⬇️ 下载 Windows 一键安装器（双击即装）</a></p>
+        <details style="color:var(--muted);font-size:.9rem;">
+          <summary style="cursor:pointer;">极客备选：手动打开 PowerShell 运行一行命令</summary>
+          <p style="margin-top:8px;">按 <code>Win + X</code> 选「终端 / PowerShell」，粘贴回车：</p>
+          <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button>irm https://wole278.github.io/ai-ops-starter/install.ps1 | iex</div>
+        </details>
       </div>
 
       <div id="os-mac" class="panel">
-        <p><strong>傻瓜式一键安装（自动检测环境与插件目录）：</strong></p>
-        <p>打开「<strong>终端 (Terminal)</strong>」，粘贴下面这行命令并回车：</p>
-        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button>curl -fsSL https://wole278.github.io/ai-ops-starter/install.sh | bash</div>
-        <p>安装完成后重启或新开一个 Antigravity 窗口，即刻生效！</p>
+        <p><strong>方式一（最傻瓜 · 零终端操作）：</strong>直接复制下面这句话，发给你的 Antigravity 对话框，让 AI 自己帮你装好：</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button>请帮我运行 curl -fsSL https://wole278.github.io/ai-ops-starter/install.sh | bash 安装入门插件，完成后提醒我。</div>
+        <p style="margin-top:10px;"><strong>方式二（网页下载 · 双击自动运行，macOS）：</strong>下载后在「下载」文件夹双击（若提示未知开发者，右键点“打开”）：</p>
+        <p style="margin:8px 0 12px;"><a href="install-mac.command" download="install-ai-ops-starter.command" style="display:inline-block;padding:10px 18px;border-radius:8px;background:var(--accent);color:#0f172a;font-weight:700;text-decoration:none;">⬇️ 下载 macOS 一键安装器（双击即装）</a></p>
+        <details style="color:var(--muted);font-size:.9rem;">
+          <summary style="cursor:pointer;">极客备选：手动打开终端 (Terminal) 运行一行命令（macOS / Linux）</summary>
+          <div class="code-box" style="margin-top:8px;"><button class="copy-btn" onclick="copyCode(this)">复制</button>curl -fsSL https://wole278.github.io/ai-ops-starter/install.sh | bash</div>
+        </details>
       </div>
 
       <div id="os-offline" class="panel">

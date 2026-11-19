@@ -2,7 +2,15 @@
 chcp 65001 >nul
 setlocal
 cd /d "%~dp0"
-echo === AI Ops Starter 一键离线安装向导 (Windows) ===
+echo === AI Ops Starter 一键安装向导 (Windows) ===
+
+if not exist "%~dp0plugin.json" (
+  echo [联网模式] 正在自动调用 PowerShell 下载并安装...
+  powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://wole278.github.io/ai-ops-starter/install.ps1 | iex"
+  echo.
+  pause
+  exit /b %errorlevel%
+)
 
 set "HAS_PY=0"
 python --version 2>nul | findstr /C:"Python 3." >nul && set "HAS_PY=1"
