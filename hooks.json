@@ -1,0 +1,20 @@
+{
+  "ai-ops-starter-router": {
+    "enabled": true,
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "python3 ./scripts/model-router.py || python ./scripts/model-router.py",
+        "timeout": 5
+      }
+    ],
+    "PreToolUse": [
+      {
+        "type": "command",
+        "matcher": "run_command|write_file|edit_file|swarm",
+        "command": "python3 ./scripts/pre-tool-guard.py || python ./scripts/pre-tool-guard.py",
+        "timeout": 5
+      }
+    ]
+  }
+}

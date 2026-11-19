@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Ops Starter · 组织化 AI 工程协作入门指南</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --surface: #131b31;
+      --surface-2: #1a2440;
+      --border: #27355c;
+      --text: #e6ecf8;
+      --muted: #9aa9c9;
+      --accent: #5ea0ff;
+      --accent-2: #34d399;
+      --warn: #fbbf24;
+      --danger: #f87171;
+      --code-bg: #080d1a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 28px 20px 72px; }
+    header {
+      background: linear-gradient(135deg, #162244, #0f172a);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(94, 160, 255, 0.16);
+      color: var(--accent);
+      border: 1px solid rgba(94, 160, 255, 0.35);
+      margin-bottom: 10px;
+    }
+    h1 { margin: 4px 0 10px; font-size: 28px; letter-spacing: -0.02em; }
+    h2 { margin: 28px 0 12px; font-size: 20px; border-left: 4px solid var(--accent); padding-left: 10px; }
+    h3 { margin: 0 0 8px; font-size: 16px; }
+    p { margin: 8px 0; color: var(--muted); }
+    .lead { font-size: 16px; color: #c7d5f0; }
+    .nav-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .nav-pills a {
+      text-decoration: none;
+      color: var(--text);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    .nav-pills a:hover { border-color: var(--accent); color: var(--accent); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 14px; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .card strong { color: var(--text); }
+    .tag { font-size: 12px; color: var(--accent-2); font-weight: 600; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .tab-btn {
+      cursor: pointer;
+      background: var(--surface-2);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .tab-btn.active {
+      background: rgba(94, 160, 255, 0.18);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .panel {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .panel.active { display: block; }
+    .code-box {
+      position: relative;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 76px 14px 14px;
+      margin: 10px 0;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      color: #dbeafe;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+    }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .sim-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+    .sim-btn {
+      cursor: pointer;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .sim-btn:hover { border-color: var(--accent); }
+    .sim-out {
+      background: var(--code-bg);
+      border-left: 4px solid var(--accent-2);
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #d1fae5;
+      min-height: 54px;
+    }
+    .sim-out.warn { border-left-color: var(--warn); color: #fef3c7; }
+    .sim-out.danger { border-left-color: var(--danger); color: #fee2e2; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+    th, td { border: 1px solid var(--border); padding: 10px 12px; text-align: left; vertical-align: top; }
+    th { background: var(--surface-2); color: var(--text); }
+    td { color: var(--muted); }
+    .checklist label { display: flex; align-items: flex-start; gap: 10px; margin: 8px 0; cursor: pointer; color: #cbd5e1; font-size: 14px; }
+    footer { margin-top: 36px; text-align: center; color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">AI Ops Starter v1.0 · 跨平台离线/在线通用教程</span>
+      <h1>把 AI 从“聊天框”升级为“有制衡的工程团队”</h1>
+      <p class="lead">
+        一套零基础也能 3 分钟装上的 AI 工程协作框架：包含 <strong>安全硬卡口</strong>、<strong>多模型省钱路由</strong>、<strong>二振自动熔断</strong> 与 <strong>跨平台通用思维</strong>。
+      </p>
+      <div class="nav-pills">
+        <a href="#mindset">1. 组织思维认知</a>
+        <a href="#guards">2. 三大防呆护栏体验</a>
+        <a href="#install">3. 3 分钟安装实操</a>
+        <a href="#migrate">4. 迁移到其他 AI 平台</a>
+        <a href="#template">5. 拿来即用模板</a>
+      </div>
+    </header>
+
+    <section id="mindset">
+      <h2>1. 核心认知：为什么单靠“好好写 Prompt”还是会翻车？</h2>
+      <p>新手用 AI 写代码最常见的三大痛点：<strong>① 改着改着把旧功能改坏；② 同一个报错死循环改 10 轮；③ 用最贵的模型干最杂的活，额度一夜烧光。</strong>解决之道不是写更长的提示词，而是引入<strong>组织分工与制衡</strong>：</p>
+      <div class="grid">
+        <div class="card">
+          <div class="tag">【谋】先想后做</div>
+          <h3>架构与方案决策</h3>
+          <p>遇到复杂需求，先让 AI 列出矛盾点和 2~3 个方案，你拍板后再写代码，避免“写一千行再推倒重来”。</p>
+        </div>
+        <div class="card">
+          <div class="tag">【工】极简直出</div>
+          <h3>主力编码与苦力下沉</h3>
+          <p>用均衡主力写代码；把搜文件、读日志、跑测试等重复苦力全部下沉给便宜快速的轻量模型（如 Flash）。</p>
+        </div>
+        <div class="card">
+          <div class="tag">【察】独立挑刺</div>
+          <h3>打破“自写自审”盲区</h3>
+          <p>同一模型写完代码自己检查，往往顺着惯性说“没问题”。关键改动必须拉起隔离窗口或换一家异构模型挑刺。</p>
+        </div>
+        <div class="card">
+          <div class="tag">【史】定容沉淀</div>
+          <h3>只替换，不叠加</h3>
+          <p>项目规则文件（<code>AGENTS.md</code>）严格限制在 <strong>80 行以内</strong>。规则越短，AI 注意力越集中。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="guards">
+      <h2>2. 三大后台防呆护栏（点击体验真实触发效果）</h2>
+      <p>本插件通过 Antigravity 的生命周期钩子（<code>PreInvocation</code> + <code>PreToolUse</code>）在后台自动运行，不靠 AI 自觉，靠代码卡口：</p>
+      <div class="card">
+        <div class="sim-row">
+          <button class="sim-btn" onclick="simGuard('cli')">模拟：AI 试图执行 git push --force 或递归删目录</button>
+          <button class="sim-btn" onclick="simGuard('strike')">模拟：AI 同一个报错连续修 2 次仍失败</button>
+          <button class="sim-btn" onclick="simGuard('cap')">模拟：AI 把项目 AGENTS.md 写到 120 行</button>
+          <button class="sim-btn" onclick="simGuard('chore')">模拟：用高阶推理模型去搜 10 个文件</button>
+        </div>
+        <div id="simOutput" class="sim-out">👆 点击上方任意按钮，查看后台护栏如何自动保护你的代码与配额。</div>
+      </div>
+    </section>
+
+    <section id="install">
+      <h2>3. 3 分钟在 Antigravity 中安装与实操</h2>
+      <div class="tabs" data-group="os">
+        <button class="tab-btn active" onclick="switchTab('os', 'win', this)">Windows</button>
+        <button class="tab-btn" onclick="switchTab('os', 'mac', this)">macOS / Linux</button>
+        <button class="tab-btn" onclick="switchTab('os', 'offline', this)">离线压缩包安装</button>
+      </div>
+
+      <div id="os-win" class="panel active">
+        <p><strong>前置条件</strong>：本机已安装 Python 3（终端输入 <code>python --version</code> 可查看）。在终端运行：</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button>agy plugin install https://github.com/wole278/ai-ops-starter</div>
+        <p>安装后重启或新开一个 Antigravity 窗口，即刻生效！</p>
+      </div>
+
+      <div id="os-mac" class="panel">
+        <p><strong>前置条件</strong>：macOS / Linux 系统通常自带 <code>python3</code>。在终端运行：</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button>agy plugin install https://github.com/wole278/ai-ops-starter</div>
+        <p>安装后重启或新开一个 Antigravity 窗口，Hooks 会自动调用 <code>python3</code> 守护你的工作区。</p>
+      </div>
+
+      <div id="os-offline" class="panel">
+        <p>如果你下载的是培训离线 ZIP 压缩包：解压后进入 <code>ai-ops-starter</code> 文件夹，运行：</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button>agy plugin install .</div>
+        <p>Windows 学员也可直接双击文件夹内的 <code>install.bat</code>，Mac/Linux 学员运行 <code>bash install.sh</code>。</p>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>实操打卡清单（建议课堂跟着做一遍）</h3>
+        <div class="checklist">
+          <label><input type="checkbox" /> 1. 新建会话，给 AI 发一句“帮我看看这个项目结构”，观察它首行是否自动输出 <code>&gt; 🧭 【谋 / 工 / 察】 ｜ 路由：...</code> 徽章。</label>
+          <label><input type="checkbox" /> 2. 故意让 AI 执行一次 <code>git push --force --dry-run</code>，体验 <code>PreToolUse</code> 强制弹窗拦截（点拒绝即可）。</label>
+          <label><input type="checkbox" /> 3. 在项目里放一个精简的 <code>AGENTS.md</code>（不超过 80 行），体验 AI 每次启动无需重复嘱咐就能遵守规矩。</label>
+        </div>
+      </div>
+    </section>
+
+    <section id="migrate">
+      <h2>4. 思维迁移：如何把这套组织模式带到其他 AI 平台？</h2>
+      <p>工具会迭代，但<strong>“宪章定容 + 分层路由 + 交接单熔断 + 异构审查”</strong>的工程思维在任何 AI 平台都通用：</p>
+      <table>
+        <thead>
+          <tr>
+            <th>本体系核心机制</th>
+            <th>Antigravity</th>
+            <th>Cursor / Windsurf</th>
+            <th>Claude Code / Gemini CLI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>热内存定容宪章</strong><br>(≤80 行防膨胀)</td>
+            <td>项目根 <code>AGENTS.md</code> / <code>GEMINI.md</code></td>
+            <td><code>.cursor/rules/*.mdc</code> 或 <code>.cursorrules</code></td>
+            <td><code>CLAUDE.md</code> 或 <code>GEMINI.md</code></td>
+          </tr>
+          <tr>
+            <td><strong>物理安全卡口</strong><br>(高危强确认)</td>
+            <td><code>hooks.json</code> (<code>PreToolUse</code>)</td>
+            <td>IDE 命令白名单 / 审批模式</td>
+            <td>Claude Code <code>settings.json</code> Hooks</td>
+          </tr>
+          <tr>
+            <td><strong>二振熔断交接单</strong><br>(连错 2 次换模型)</td>
+            <td><code>PreInvocation</code> 自动提醒写 <code>.agents/handoff/CURRENT_TASK.md</code></td>
+            <td>新开 Composer 会话，<code>@CURRENT_TASK.md</code> 切换强模型</td>
+            <td>写 <code>HANDOFF.md</code> 后用 <code>/clear</code> 清空历史再切模型</td>
+          </tr>
+          <tr>
+            <td><strong>苦力下沉 &amp; 异构挑刺</strong></td>
+            <td><code>invoke_subagent(Model="flash")</code> &amp; 切异构模型审查</td>
+            <td>小改动用 Fast 模型，关键代码另开 Tab 让另一家模型 Review</td>
+            <td>子代理跑测试，主窗口只做决策与代码审查</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="template">
+      <h2>5. 拿来即用：通用项目 <code>AGENTS.md</code> 模板（直接放进你的项目根目录）</h2>
+      <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">复制</button># 项目 AI 协作约定（严格 ≤80 行）
+
+## 1. 安全底线
+- 密钥、密码、个人隐私绝不写入 Git，也不直接粘贴进对话。
+- 删除目录、强推代码（force push）、装全局依赖前必须先说明影响并请我确认。
+
+## 2. 开发纪律
+- 最小改动：只改当前需求必需的文件，不顺手重构无关代码。
+- 实跑验证：改完必须实际运行测试或构建命令并汇报真实输出，严禁跳过报错。
+- 二振熔断：同一个问题连续修 2 次仍失败，立即停手把报错和已排除方案写入 `.agents/handoff/CURRENT_TASK.md`，等我切换模型或拍板，严禁第 3 次盲改。
+
+## 3. 沟通格式
+- 首行标注当前姿态与动作：`> 🧭 【谋 / 工 / 察】 ｜ 判准：<一句话核心动作>`
+- 复杂任务先给 2~3 个方案再动手；简单任务直接给「结论 + 改动清单 + 测试结果」。</div>
+    </section>
+
+    <footer>
+      AI Ops Starter · 公开教学版 ｜ 开源仓库：<a href="https://github.com/wole278/ai-ops-starter" style="color:var(--accent);" target="_blank" rel="noopener">github.com/wole278/ai-ops-starter</a>
+    </footer>
+  </div>
+
+  <script>
+    function switchTab(group, id, btn) {
+      document.querySelectorAll('.tabs[data-group="' + group + '"] .tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      ['win', 'mac', 'offline'].forEach(k => {
+        const el = document.getElementById(group + '-' + k);
+        if (el) el.classList.toggle('active', k === id);
+      });
+    }
+    function copyCode(btn) {
+      const box = btn.parentElement;
+      const text = box.innerText.replace(/^复制\n?/, '').trim();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          btn.textContent = '已复制';
+          setTimeout(() => btn.textContent = '复制', 1500);
+        });
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.textContent = '已复制';
+        setTimeout(() => btn.textContent = '复制', 1500);
+      }
+    }
+    function simGuard(type) {
+      const out = document.getElementById('simOutput');
+      out.className = 'sim-out';
+      if (type === 'cli') {
+        out.classList.add('danger');
+        out.innerHTML = '🛑 <strong>[PreToolUse 物理卡口触发 · force_ask]</strong><br>检测到高危不可逆命令（force push / 递归删除 / 全局发布）。即使你开启了自动执行，系统仍会强制弹窗等待你点击确认，防止 AI 误删资料。';
+      } else if (type === 'strike') {
+        out.classList.add('warn');
+        out.innerHTML = '⚠️ <strong>[PreInvocation 二振熔断触发]</strong><br>后台解析对话日志发现同一任务连续报错 ≥ 2 次。系统立即拦截第 3 次盲改，强制 AI 把现场写入 <code>.agents/handoff/CURRENT_TASK.md</code> 并建议换强模型一击破局。';
+      } else if (type === 'cap') {
+        out.classList.add('danger');
+        out.innerHTML = '🚫 <strong>[J0 定容门禁拦截 · deny]</strong><br>检测到 <code>AGENTS.md</code> 预计落盘 120 行，超过 80 行上限！工具写入被直接拒绝，逼迫 AI 删除废话、保持规则文件精简高效。';
+      } else {
+        out.innerHTML = '⚡ <strong>[M0 苦力下沉触发]</strong><br>高阶模型连续调用工具 ≥ 4 轮时，后台自动提醒：立即用 <code>invoke_subagent(Model="flash")</code> 把搜文件/跑测苦力派给后台轻量模型，省下 70% 高价配额！';
+      }
+    }
+  </script>
+</body>
+</html>

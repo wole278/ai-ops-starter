@@ -1,0 +1,6 @@
+{
+  "name": "ai-ops-starter",
+  "version": "1.0.0",
+  "description": "Cross-platform starter kit for organized AI engineering in Antigravity: safe PreToolUse guards, cost-aware model routing, two-strike circuit breaker, and context capacity limits.",
+  "author": "wole278"
+}
